@@ -8,18 +8,21 @@ import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
 
+import _00_Click_Chat.gui.ButtonClicker;
+
 public class Client {
 	private String ip;
 	private int port;
-
+	ButtonClicker bc;
 	Socket connection;
 
 	ObjectOutputStream os;
 	ObjectInputStream is;
 
-	public Client(String ip, int port) {
+	public Client(String ip, int port, ButtonClicker bc) {
 		this.ip = ip;
 		this.port = port;
+		this.bc = bc;
 	}
 
 	public void start(){
@@ -52,7 +55,9 @@ public class Client {
 	public void sendClick() {
 		try {
 			if (os != null) {
-				os.writeObject("CLICK SENT FROM CLIENT");
+				bc.sendMessage();
+				os.writeObject(bc.getjell());
+				
 				os.flush();
 			}
 		} catch (IOException e) {
