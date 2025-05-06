@@ -29,6 +29,7 @@ public class Client {
 		try {
 
 			connection = new Socket(ip, port);
+			bc.setMessage(bc.getconnectmsg());
 
 			os = new ObjectOutputStream(connection.getOutputStream());
 			is = new ObjectInputStream(connection.getInputStream());

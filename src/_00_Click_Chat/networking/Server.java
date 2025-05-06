@@ -36,6 +36,7 @@ public class Server {
 			server = new ServerSocket(port, 100);
 
 			connection = server.accept();
+			bc.setMessage("Client connected");
 
 			os = new ObjectOutputStream(connection.getOutputStream());
 			is = new ObjectInputStream(connection.getInputStream());

@@ -2,6 +2,8 @@ package _00_Click_Chat.gui;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,12 +15,14 @@ import _00_Click_Chat.networking.Client;
 import _00_Click_Chat.networking.Server;
 
 public class ButtonClicker extends JFrame {
-	JButton button = new JButton("CLICK");
-	JTextField jetf = new JTextField("message|");
+	JButton button = new JButton("Send message");
+	JTextField jetf = new JTextField("Replace with message");
 	JLabel jell = new JLabel("");
+	ArrayList<JLabel> jells = new ArrayList<JLabel>();
 	boolean good = false;
 	Server server;
 	Client client;
+	String connectmsg = "not set";
 	
 	
 	public static void main(String[] args) {
@@ -33,21 +37,24 @@ public class ButtonClicker extends JFrame {
 			server = new Server(8080, this);
 			System.out.println("test 2");
 			setTitle("SERVER");
-			JOptionPane.showMessageDialog(null, "Server started at: " + server.getIPAddress() + "\nPort: " + server.getPort());
+			//JOptionPane.showMessageDialog(null, "Server started at: " + server.getIPAddress() + "\nPort: " + server.getPort());
 			button.addActionListener((e)->{
 				server.sendClick();
 			});
-			
+			 
 			add(jetf);
-			add(jell);
+			jells.add(new JLabel());
+			add(jells.get(0));
 			add(button);
-			jell.setSize(400, 150);
-			jell.setLocation(0, 180);
+			jells.get(0).setSize(400, 150);
+			jells.get(0).setLocation(10, 480);
+			jells.get(0).setText("Server started at: " + server.getIPAddress() + "\nPort: " + server.getPort());
+			//jell.setLocation(0, 180);
 			jetf.setSize(400, 30);
 			button.setSize(50, 50);
 			this.pack();
 			setVisible(true);
-			setSize(400, 300);
+			setSize(400, 600);
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			server.start();
 			good=true;
@@ -63,20 +70,23 @@ public class ButtonClicker extends JFrame {
 			}//JOptionPane.showInputDialog("Enter the IP Address");
 			String prtStr = "8080";//JOptionPane.showInputDialog("Enter the port number");
 			int port = Integer.parseInt(prtStr);
+			connectmsg = "Connected to: " +ipStr + " Port: " + prtStr;
 			client = new Client(ipStr, port, this);
 			button.addActionListener((e)->{
 				client.sendClick();
 			});
 			add(jetf);
-			add(jell);
+			jells.add(new JLabel());
+			add(jells.get(0));
 			add(button);
-			jell.setSize(400, 150);
-			jell.setLocation(0, 180);
+			jells.get(0).setSize(400, 150);
+			jells.get(0).setLocation(10, 480);
+			//jells.get(0).setText("debug");
 			jetf.setSize(400, 30);
 			button.setSize(50, 50);
 			this.pack();
 			setVisible(true);
-			setSize(400, 300);
+			setSize(400, 600);
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			client.start();
 			good=true;
@@ -88,20 +98,44 @@ public class ButtonClicker extends JFrame {
 	public void sendMessage(boolean isserver) {
 		String msg = "MESSAGE NOT SET";
 		if(!isserver) {
-		msg=jell.getText()+"Client: "+jetf.getText();
+		//msg=jell.getText()+"Client: "+jetf.getText();
+		msg="Client: "+jetf.getText();
 		}else {
-			msg=jell.getText()+"Server: "+jetf.getText();
+			
+			//msg=jell.getText()+"Server: "+jetf.getText();
+			msg="Server: "+jetf.getText();
 		}
 		
-		jell.setText(msg);
+		for (int i = 0; i < jells.size(); i++) {
+			jells.get(i).setLocation(10, 480-((jells.size()-i)*20));
+		}
+		jells.add(new JLabel());
+		add(jells.get(jells.size()-1));
+		jells.get(jells.size()-1).setSize(400, 150);
+		jells.get(jells.size()-1).setLocation(10, 480);
+		jells.get(jells.size()-1).setText(jells.size()-2+") "+msg);
+		add(button);
+		//button.setVisible(false);
 		
 	}
 	
 	
 	public void setMessage(String msg) {
-		jell.setText(msg);
+		for (int i = 0; i < jells.size(); i++) {
+			jells.get(i).setLocation(10, 480-((jells.size()-i)*20));
+		}
+		jells.add(new JLabel());
+		add(jells.get(jells.size()-1));
+		jells.get(jells.size()-1).setSize(400, 150);
+		jells.get(jells.size()-1).setLocation(10, 480);
+		jells.get(jells.size()-1).setText(msg);
+		add(button);
 	}
 	public String getjell() {
-		return jell.getText();
+		System.out.println(jells.get(jells.size()-1).getText());
+		return jells.get(jells.size()-1).getText();
+	}
+	public String getconnectmsg() {
+		return connectmsg;
 	}
 }
