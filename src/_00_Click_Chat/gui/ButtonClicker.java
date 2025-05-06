@@ -46,7 +46,7 @@ public class ButtonClicker extends JFrame {
 			jells.add(new JLabel());
 			add(jells.get(0));
 			add(button);
-			jells.get(0).setSize(400, 150);
+			jells.get(0).setSize(400, 15);
 			jells.get(0).setLocation(10, 480);
 			jells.get(0).setText("Server started at: " + server.getIPAddress() + "\nPort: " + server.getPort());
 			//jell.setLocation(0, 180);
@@ -79,7 +79,7 @@ public class ButtonClicker extends JFrame {
 			jells.add(new JLabel());
 			add(jells.get(0));
 			add(button);
-			jells.get(0).setSize(400, 150);
+			jells.get(0).setSize(400, 15);
 			jells.get(0).setLocation(10, 480);
 			//jells.get(0).setText("debug");
 			jetf.setSize(400, 30);
@@ -107,12 +107,12 @@ public class ButtonClicker extends JFrame {
 		}
 		
 		for (int i = 0; i < jells.size(); i++) {
-			jells.get(i).setLocation(10, 480-((jells.size()-i)*20));
+			jells.get(i).setLocation(10, this.getSize().height-30-((jells.size()-i)*20));
 		}
 		jells.add(new JLabel());
 		add(jells.get(jells.size()-1));
-		jells.get(jells.size()-1).setSize(400, 150);
-		jells.get(jells.size()-1).setLocation(10, 480);
+		jells.get(jells.size()-1).setSize(400, 15);
+		jells.get(jells.size()-1).setLocation(10, this.getSize().height-30);
 		jells.get(jells.size()-1).setText(jells.size()-2+") "+msg);
 		add(button);
 		//button.setVisible(false);
@@ -122,12 +122,12 @@ public class ButtonClicker extends JFrame {
 	
 	public void setMessage(String msg) {
 		for (int i = 0; i < jells.size(); i++) {
-			jells.get(i).setLocation(10, 480-((jells.size()-i)*20));
+			jells.get(i).setLocation(10, this.getSize().height-30-((jells.size()-i)*20));
 		}
 		jells.add(new JLabel());
 		add(jells.get(jells.size()-1));
-		jells.get(jells.size()-1).setSize(400, 150);
-		jells.get(jells.size()-1).setLocation(10, 480);
+		jells.get(jells.size()-1).setSize(400, 15);
+		jells.get(jells.size()-1).setLocation(10, this.getSize().height-30);
 		jells.get(jells.size()-1).setText(msg);
 		add(button);
 	}
