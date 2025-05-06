@@ -43,8 +43,7 @@ public class Client {
 		
 		while (connection.isConnected()) {
 			try {
-				JOptionPane.showMessageDialog(null, is.readObject());
-				System.out.println(is.readObject());
+				bc.setMessage(is.readObject().toString());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -55,7 +54,7 @@ public class Client {
 	public void sendClick() {
 		try {
 			if (os != null) {
-				bc.sendMessage();
+				bc.sendMessage(false);
 				os.writeObject(bc.getjell());
 				
 				os.flush();

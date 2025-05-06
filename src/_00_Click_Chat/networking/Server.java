@@ -48,7 +48,7 @@ public class Server {
 					bc.setMessage(is.readObject().toString());
 					//System.out.println(is.readObject());
 				}catch(EOFException e) {
-					JOptionPane.showMessageDialog(null, "Connection Lost");
+					JOptionPane.showMessageDialog(null, "Client disconnected");
 					System.exit(0);
 				}
 			}
@@ -73,8 +73,9 @@ public class Server {
 	public void sendClick() {
 		try {
 			if (os != null) {
-				os.writeObject("CLICK SENT FROM SERVER");
-				bc.sendMessage();
+				bc.sendMessage(true);
+				os.writeObject(bc.getjell());
+				
 				os.flush();
 			}
 		} catch (IOException e) {

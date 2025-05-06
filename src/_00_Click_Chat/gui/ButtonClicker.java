@@ -85,9 +85,19 @@ public class ButtonClicker extends JFrame {
 			System.out.println("not good");
 		}
 	} 
-	public void sendMessage() {
-		jell.setText(jell.getText()+"\n"+"Client: "+jetf.getText());
+	public void sendMessage(boolean isserver) {
+		String msg = "MESSAGE NOT SET";
+		if(!isserver) {
+		msg=jell.getText()+"Client: "+jetf.getText();
+		}else {
+			msg=jell.getText()+"Server: "+jetf.getText();
+		}
+		
+		jell.setText(msg);
+		
 	}
+	
+	
 	public void setMessage(String msg) {
 		jell.setText(msg);
 	}
