@@ -1,5 +1,6 @@
 package _00_Click_Chat.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -8,10 +9,13 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import _00_Click_Chat.networking.Client;
@@ -27,13 +31,26 @@ public class ButtonClicker extends JFrame implements KeyListener {
 	Client client;
 	String connectmsg = "not set";
 	boolean isserver=true;
-	
-	
+	JPanel msgs = new JPanel();
+	JScrollPane listScroller = new JScrollPane();
 	public static void main(String[] args) {
 		new ButtonClicker();
 	}
 	
 	public ButtonClicker(){
+		//BorderLayout bl = new BorderLayout();
+		jetf.setSize(400, 30);
+		this.add(jetf, BorderLayout.NORTH);
+		listScroller.setAlignmentX(LEFT_ALIGNMENT);
+		msgs.add(listScroller);
+		
+		this.add(msgs);
+		msgs.setLayout(new BoxLayout(msgs, BoxLayout.Y_AXIS));
+		
+		
+		this.setPreferredSize(new Dimension(400, 600));
+		
+		// pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
 		
 		int response = JOptionPane.showConfirmDialog(null, "Would you like to host a connection?", "Buttons!", JOptionPane.YES_NO_OPTION);
 		if(response == JOptionPane.YES_OPTION){
@@ -45,16 +62,17 @@ public class ButtonClicker extends JFrame implements KeyListener {
 			/*button.addActionListener((e)->{
 				server.sendClick();
 			});*/
+			
 			jetf.addKeyListener(this);
-			add(jetf);
+			//this.getContentPane().add(jetf);
+			//this.getcontepadd(jetf);
 			jells.add(new JLabel());
-			add(jells.get(0));
+			msgs.add(jells.get(0));
 			//add(button);
 			jells.get(0).setSize(400, 15);
-			jells.get(0).setLocation(10, 480);
+		//	jells.get(0).setLocation(10, 480);
 			jells.get(0).setText("Server started at: " + server.getIPAddress() + "\nPort: " + server.getPort());
 			//jell.setLocation(0, 180);
-			jetf.setSize(400, 30);
 			//button.setSize(50, 50);
 			this.pack();
 			setVisible(true);
@@ -80,14 +98,14 @@ public class ButtonClicker extends JFrame implements KeyListener {
 			/*button.addActionListener((e)->{
 				client.sendClick();
 			});*/
-			this.setPreferredSize(new Dimension(400, 600));
+		//	this.setPreferredSize(new Dimension(400, 600));
 			jetf.addKeyListener(this);
-			add(jetf);
+			//this.getContentPane().add(jetf);
 			jells.add(new JLabel());
-			add(jells.get(0));
+			msgs.add(jells.get(0), 0);
 			//add(button);
 			jells.get(0).setSize(400, 15);
-			jells.get(0).setLocation(10, 480);
+			//jells.get(0).setLocation(10, 480);
 			//jells.get(0).setText("debug");
 			jetf.setSize(400, 30);
 			//button.setSize(50, 50);
@@ -110,57 +128,46 @@ public class ButtonClicker extends JFrame implements KeyListener {
 		//msg=jell.getText()+"Client: "+jetf.getText();
 		msg="Client: "+jetf.getText();
 		}else {
-			jells.get(0).setText("");
+		//	jells.get(0).setText("");
 			//msg=jell.getText()+"Server: "+jetf.getText();
 			msg="Server: "+jetf.getText();
 		
 		}
 		
 		for (int i = 0; i < jells.size(); i++) {
-			jells.get(i).setLocation(10, this.getSize().height-50-((jells.size()-i)*20));
+			//jells.get(i).setBounds(10, this.getSize().height-50-((jells.size()-i)*20), 400, 20);
 			System.out.println(jells.get(i).getText()+" at "+(this.getSize().height-30-((jells.size()-i)*20))+" at "+i);
 		}
-		System.out.println(this.getSize().height);
-		System.out.println(this.HEIGHT);
 		
 		
+			
 			jells.add(new JLabel());
+			msgs.add(jells.get(jells.size()-1), jells.size()-1);
 			jells.get(jells.size()-1).setSize(400, 15);
 		jells.get(jells.size()-1).setText(jells.size()-2+") "+msg);
-		add(jells.get(jells.size()-1));
-		jells.get(jells.size()-1).setLocation(10, this.getSize().height-50);
-		
 	
-		/*
+	//	jells.get(jells.size()-1).setBounds(10, this.getSize().height-50, 400, 20);
 		
-		
-		
-		jells.get(0).setSize(380, 15);
-		jells.get(0).setLocation(10, 			  570);
-		jells.get(0).setText("height-30");
-		jells.get(1).setSize(380, 15);
-		jells.get(1).setLocation(10, 			  this.getSize().height);
-		jells.get(1).setText("height");*/
-		
-		System.out.println(jells.get(jells.size()-1).getText()+" at "+(this.getSize().height));
-		//button.setVisible(false);
-			
-			System.out.println(jells.get(1).getText() + "<---");
+		System.out.println(jells.get(jells.size()-1).getText()+" size-1 at "+(this.getSize().height-50));
+		this.setPreferredSize(this.getSize());
+		this.pack();
 	}
 	
 	
 	public void setMessage(String msg) {
 		if(isserver) {
-			jells.get(0).setText("");
+		//	jells.get(0).setText("");
 		}
 		for (int i = 0; i < jells.size(); i++) {
-			jells.get(i).setLocation(10, this.getSize().height-50-((jells.size()-i)*20));
+			//jells.get(i).setBounds(10, this.getSize().height-50-((jells.size()-i)*20), 400, 20);
 		}
 		jells.add(new JLabel());
 		jells.get(jells.size()-1).setSize(400, 15);
 	jells.get(jells.size()-1).setText(msg);
-	add(jells.get(jells.size()-1));
-	jells.get(jells.size()-1).setLocation(10, this.getSize().height-50);
+	this.msgs.add(jells.get(jells.size()-1));
+//	jells.get(jells.size()-1).setBounds(10, this.getSize().height-50, 400, 20);
+	this.setPreferredSize(this.getSize());
+	this.pack();
 	}
 	
 	
