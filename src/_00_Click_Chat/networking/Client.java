@@ -9,17 +9,18 @@ import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
 
 import _00_Click_Chat.gui.ButtonClicker;
+import _02_Chat_Application.ChatApp;
 
 public class Client {
 	private String ip;
 	private int port;
-	ButtonClicker bc;
+	ChatApp bc;
 	Socket connection;
 
 	ObjectOutputStream os;
 	ObjectInputStream is;
 
-	public Client(String ip, int port, ButtonClicker bc) {
+	public Client(String ip, int port, ChatApp bc) {
 		this.ip = ip;
 		this.port = port;
 		this.bc = bc;

@@ -15,19 +15,20 @@ import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
 
 import _00_Click_Chat.gui.ButtonClicker;
+import _02_Chat_Application.ChatApp;
  
 public class Server {
 	private int port;
-	ButtonClicker bc;
+	ChatApp bc;
 	private ServerSocket server;
 	private Socket connection;
 
 	ObjectOutputStream os;
 	ObjectInputStream is;
 
-	public Server(int port, ButtonClicker bc) {
+	public Server(int port, ChatApp chatApp) {
 		this.port = port;
-		this.bc = bc;
+		this.bc = chatApp;
 	}
 
 	public void start(){
