@@ -89,7 +89,7 @@ public class ChatApp extends JFrame implements KeyListener {
 			msgs.setPreferredSize(new Dimension(this.getWidth()-35, msgs.getPreferredSize().height));
 			server.start();
 			good=true;
-			
+			 
 		}else{
 			setTitle("CLIENT");
 			isserver=false;
